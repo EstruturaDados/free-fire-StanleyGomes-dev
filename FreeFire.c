@@ -159,14 +159,14 @@ void adicionarComponente() {
         return;
     }
     Componente c;
-    printf("\nDigite o nome do componente (max %d caracteres): ", NOME_SIZE - 1);
+    printf("\nDigite o nome do Item: ", NOME_SIZE - 1);
     read_line(c.nome, NOME_SIZE);
     if (strlen(c.nome) == 0) {
         printf("Nome invalido. Operacao cancelada.\n");
         return;
     }
 
-    printf("Digite o tipo do componente (ex: controle/suporte/propulsao) (max %d): ", TIPO_SIZE - 1);
+    printf("Digite o tipo do Item (ex: Arma/Munição/Cura/Defesa) (max %d): ", TIPO_SIZE - 1);
     read_line(c.tipo, TIPO_SIZE);
     if (strlen(c.tipo) == 0) {
         strcpy(c.tipo, "desconhecido");
@@ -180,16 +180,16 @@ void adicionarComponente() {
 
     componentes[totalComponentes++] = c;
     ordenadoPorNome = false;
-    printf("Componente cadastrado com sucesso!\n");
+    printf("Item cadastrado com sucesso!\n");
 }
 
 void removerComponente() {
     if (totalComponentes == 0) {
-        printf("\nNenhum componente para remover.\n");
+        printf("\nNenhum Item para remover.\n");
         return;
     }
     char nomeBusca[NOME_SIZE];
-    printf("\nDigite o nome do componente a remover: ");
+    printf("\nDigite o nome do Item a remover: ");
     read_line(nomeBusca, NOME_SIZE);
     int pos = -1;
     for (int i = 0; i < totalComponentes; i++) {
@@ -199,7 +199,7 @@ void removerComponente() {
         }
     }
     if (pos == -1) {
-        printf("Componente '%s' nao encontrado.\n", nomeBusca);
+        printf("Item '%s' nao encontrado.\n", nomeBusca);
         return;
     }
     for (int i = pos; i < totalComponentes - 1; i++) {
@@ -257,11 +257,11 @@ void opcaoOrdenarEPesquisar() {
 /* Buscar por nome (sequencial) - mostra comparacoes também */
 void buscarSequencial() {
     if (totalComponentes == 0) {
-        printf("\nNenhum componente cadastrado.\n");
+        printf("\nNenhum Item cadastrado.\n");
         return;
     }
     char chave[NOME_SIZE];
-    printf("\nDigite o nome do componente a buscar (sequencial): ");
+    printf("\nDigite o nome do Item a buscar (sequencial): ");
     read_line(chave, NOME_SIZE);
 
     long long comps = 0;
@@ -275,7 +275,7 @@ void buscarSequencial() {
     }
 
     if (idx != -1) {
-        printf("\nComponente encontrado (sequencial) na posicao %d:\n", idx + 1);
+        printf("\nItem encontrado (sequencial) na posicao %d:\n", idx + 1);
         printf("Nome: %s | Tipo: %s | Prioridade: %d\n", componentes[idx].nome, componentes[idx].tipo, componentes[idx].prioridade);
     } else {
         printf("\nComponente '%s' nao encontrado (sequencial).\n", chave);
@@ -286,7 +286,7 @@ void buscarSequencial() {
 /* Buscar por nome (binaria) */
 void buscarBinaria() {
     if (totalComponentes == 0) {
-        printf("\nNenhum componente cadastrado.\n");
+        printf("\nNenhum Item cadastrado.\n");
         return;
     }
     if (!ordenadoPorNome) {
@@ -294,14 +294,14 @@ void buscarBinaria() {
         return;
     }
     char chave[NOME_SIZE];
-    printf("\nDigite o nome do componente a buscar (binaria): ");
+    printf("\nDigite o nome do Item a buscar (binaria): ");
     read_line(chave, NOME_SIZE);
 
     long long comps = 0;
     int idx = buscaBinariaPorNome(componentes, totalComponentes, chave, &comps);
 
     if (idx != -1) {
-        printf("\nComponente encontrado (binaria) na posicao %d:\n", idx + 1);
+        printf("\nItem encontrado (binaria) na posicao %d:\n", idx + 1);
         printf("Nome: %s | Tipo: %s | Prioridade: %d\n", componentes[idx].nome, componentes[idx].tipo, componentes[idx].prioridade);
     } else {
         printf("\nComponente '%s' nao encontrado (binaria).\n", chave);
@@ -357,16 +357,16 @@ void montagemFinal() {
 int main() {
     setbuf(stdout, NULL); // facilita a exibição em alguns consoles
     int opcao;
-    printf("=== SISTEMA: Montagem da Torre de Fuga (Desafio Final) ===\n");
+    printf("=== PLANO DE FUGA - CODIGO DA ILHA (NIVEL MESTRE) ===\n");
 
     do {
         printf("\n----- Menu -----\n");
-        printf("1 - Adicionar componente (max %d)\n", MAX_COMPONENTES);
-        printf("2 - Remover componente (por nome)\n");
-        printf("3 - Listar componentes\n");
+        printf("1 - Adicionar Item (max %d)\n", MAX_COMPONENTES);
+        printf("2 - Remover Item (por nome)\n");
+        printf("3 - Listar Itens\n");
         printf("4 - Ordenar / medir algoritmos (bubble/insertion/selection)\n");
-        printf("5 - Buscar componente (sequencial)\n");
-        printf("6 - Buscar componente (binaria) [requer ordenacao por nome]\n");
+        printf("5 - Buscar Item (sequencial)\n");
+        printf("6 - Buscar Item (binaria) [requer ordenacao por nome]\n");
         printf("7 - Montagem final / verificar componente-chave\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
